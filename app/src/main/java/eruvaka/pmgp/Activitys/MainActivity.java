@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity  {
         timezone = session.get("timezone");
         expListView=(ExpandableListView)findViewById(R.id.main_lvExp);
         expListView.setGroupIndicator(null);
+        //getting ponds data from server
         getPondDetailsClassData(user_id);
     }
     private void getPondDetailsClassData(String user_id) {

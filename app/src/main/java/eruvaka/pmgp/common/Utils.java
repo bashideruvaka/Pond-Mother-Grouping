@@ -39,55 +39,12 @@ import retrofit2.Response;
 
 public class Utils {
     private Context ctx;
-    private static final String TAG = "Utils";
-    MaterialDialog ringProgressDialog = null;
     Utils   util;
     public Utils(Context ctx) {
         this.ctx = ctx;
          util = new Utils(ctx);
     }
-    public static void showAlertDialog(final Context context , String title , String message, DialogInterface.OnClickListener onClickListener){
-        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-        // setting Dialog title
-        alertDialog.setTitle(title);
-        // setting Dialog message
-        alertDialog.setMessage(message);
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", onClickListener);
-        alertDialog.show();
 
-    }
-    public void showProgressDialog() {
-        if (ringProgressDialog == null) {
-            ringProgressDialog = new MaterialDialog.Builder(ctx)
-                    //.title(ctx.getResources().getString(R.string.app_name))
-                    .content("Please wait.... ")
-                    .progress(true, 0)
-                    .theme(Theme.LIGHT)
-                    .cancelable(false)
-                    .show();
-            ringProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    try {
-                        ProgressBar v = (ProgressBar) ringProgressDialog.findViewById(android.R.id.progress);
-                        v.getIndeterminateDrawable().setColorFilter(ctx.getResources().getColor(R.color.colorPrimaryDark),
-                                android.graphics.PorterDuff.Mode.MULTIPLY);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }
-
-    public void dismissDialog() {
-        if (ringProgressDialog != null) {
-            if (ringProgressDialog.isShowing()) {
-                ringProgressDialog.dismiss();
-                ringProgressDialog = null;
-            }
-        }
-    }
     /* Adapter Classes */
     public ServiceHelper getBaseClassService() {
        return new RetroHelper().getAdapter(ctx, "", null).create(ServiceHelper.class);
@@ -314,6 +271,51 @@ public class Utils {
             }
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+    /* alert dailogs*/
+    private static final String TAG = "Utils";
+    MaterialDialog ringProgressDialog = null;
+    public static void showAlertDialog(final Context context , String title , String message, DialogInterface.OnClickListener onClickListener){
+        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        // setting Dialog title
+        alertDialog.setTitle(title);
+        // setting Dialog message
+        alertDialog.setMessage(message);
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", onClickListener);
+        alertDialog.show();
+
+    }
+    public void showProgressDialog() {
+        if (ringProgressDialog == null) {
+            ringProgressDialog = new MaterialDialog.Builder(ctx)
+                    //.title(ctx.getResources().getString(R.string.app_name))
+                    .content("Please wait.... ")
+                    .progress(true, 0)
+                    .theme(Theme.LIGHT)
+                    .cancelable(false)
+                    .show();
+            ringProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    try {
+                        ProgressBar v = (ProgressBar) ringProgressDialog.findViewById(android.R.id.progress);
+                        v.getIndeterminateDrawable().setColorFilter(ctx.getResources().getColor(R.color.colorPrimaryDark),
+                                android.graphics.PorterDuff.Mode.MULTIPLY);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+    public void dismissDialog() {
+        if (ringProgressDialog != null) {
+            if (ringProgressDialog.isShowing()) {
+                ringProgressDialog.dismiss();
+                ringProgressDialog = null;
+            }
         }
     }
 }

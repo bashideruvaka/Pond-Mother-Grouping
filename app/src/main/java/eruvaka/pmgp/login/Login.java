@@ -35,7 +35,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
-
     android.support.v7.app.ActionBar actionBar;
     ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> updatelist = new ArrayList<HashMap<String, String>>();
@@ -126,7 +125,6 @@ public class Login extends AppCompatActivity {
 
     }
     private void retrieveLoginClassData() {
-
         final String username = edtUserName.getText().toString().toLowerCase().trim();
         final String password = edtPassword.getText().toString().trim();
         JsonObject object =new JsonObject();
@@ -143,7 +141,7 @@ public class Login extends AppCompatActivity {
                     util.dismissDialog();
                 }
 
-                util.dismissDialog();
+
             }
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {

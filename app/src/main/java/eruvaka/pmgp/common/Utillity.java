@@ -20,6 +20,7 @@ import java.util.TimeZone;
  */
 
 public class Utillity {
+    /* methods and functions of schedules add & edit  data*/
     public static String mcurrenttime;
     public static String mcurrenttime2;
     public static ProgressDialog dialog;

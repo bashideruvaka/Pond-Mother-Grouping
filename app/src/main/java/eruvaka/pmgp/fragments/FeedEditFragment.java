@@ -1,16 +1,10 @@
 package eruvaka.pmgp.fragments;
 
 
-import android.app.AlertDialog;
-import android.app.Application;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -32,12 +26,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -52,20 +43,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
 import eruvaka.pmgp.Activitys.SingleFeederActivty;
-import eruvaka.pmgp.Activitys.ViewpagerActivity;
-import eruvaka.pmgp.Adpater.ExpandableListAdapterFeedEntry;
 import eruvaka.pmgp.Database.DBHelper;
 import eruvaka.pmgp.R;
-import eruvaka.pmgp.classes.ChildFeedEntry;
-import eruvaka.pmgp.classes.GroupFeedEntry;
 import eruvaka.pmgp.common.MapComparator;
-import eruvaka.pmgp.common.Model;
 import eruvaka.pmgp.common.UserSession;
 import eruvaka.pmgp.common.Utillity;
 import eruvaka.pmgp.common.Utils;
@@ -2103,9 +2088,9 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 session.put("pond_name", pond_name);
                 session.put("pond_sno", pond_sno);
                 if (new ConnectionDetector(getActivity()).isConnectingToInternet()) {
-                    //retrieveFeedersClassData(pond_sno);
-                    String response=Model.getResponse(pond_sno,user_id,timezone,getActivity());
-                    processResponse(response,pond_sno);
+                    retrieveFeedersClassData(pond_sno);
+                   // String response=Model.getResponse(pond_sno,user_id,timezone,getActivity());
+                   // processResponse(response,pond_sno);
                 } else {
                     // TODO Auto-generated method stub
                     Toast.makeText(getActivity(), "no internet connection", Toast.LENGTH_SHORT).show();
@@ -2277,7 +2262,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Log.e("--", "onResponse : " + response.code() + "--" + response.isSuccessful());
                     if (response.isSuccessful()) {
-                       // processResponse(response.body(),pondsno);
+                        processResponse(response.body(),pondsno);
                         Log.e("FEEDER DETAILS", response.body().toString());
                     } else {
                     }
@@ -2294,8 +2279,9 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             e.printStackTrace();
         }
     }
-    private void processResponse(String result,String pondsno) {
+    private void processResponse(JsonObject jsn,String pondsno) {
         try{
+            String result = jsn.toString();
             JSONObject jsnobj = new JSONObject(result);
             String status = jsnobj.getString("status");
             String zero = "0".toString().trim();

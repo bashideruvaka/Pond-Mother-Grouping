@@ -22,7 +22,7 @@ public class RetroHelper {
     public static Retrofit getAdapter(Context context, String serverUrl, HashMap<String, String> headers) {
         String url = "http://52.77.24.190/PondLogs_CD/mobile/pondlogs/" + serverUrl;
        // https://pondlogs.com/mobile/pondlogs/login
-        Log.e("RetroHelper", "url : " + url);
+      //  Log.e("RetroHelper", "url : " + url);
         Retrofit retrofit;
             OkHttpClient client = getRequestInterceptor(headers);
             retrofit = new Retrofit.Builder()
