@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+   >
+<!--  android:weightSum="3"-->
+    <TextView
+        android:id="@+id/feeder_Id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="left"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/day_feed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/day_dispensed_feed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textColor="#000000"/>
+
+
+</LinearLayout>

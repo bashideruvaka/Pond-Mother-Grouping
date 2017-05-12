@@ -1,0 +1,35 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.eruvaka.pm.MainActivity" >
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/ref3"
+        android:title="action_notification"
+        app:showAsAction="always">
+    </item>
+
+ <item
+        android:id="@+id/login_in1"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="never">
+    
+    </item>
+     <item
+        android:id="@+id/aboutus"
+        android:orderInCategory="100"
+        android:title="About Us"
+        app:showAsAction="never">
+    
+    </item>
+    <item
+        android:id="@+id/action_settings1"
+        android:orderInCategory="100"
+        android:title="Logout"
+        app:showAsAction="never">
+    
+    </item>
+
+
+</menu>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <ImageButton
+        android:id="@+id/left_nav"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|left"
+        android:src="@drawable/left_ar"
+        android:background="@android:color/transparent"/>
+
+    <ImageButton
+        android:id="@+id/right_nav"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|right"
+        android:src="@drawable/right_ar"
+        android:background="@android:color/transparent"/>
+
+</FrameLayout>

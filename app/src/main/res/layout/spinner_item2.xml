@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text2"
+    android:layout_width="match_parent"
+    android:layout_height="36dp"
+    android:textSize="15sp"
+    android:gravity="center"
+
+    android:textColor="#03070b"/>
+<!---android:drawableRight="@drawable/ponddisp" -->

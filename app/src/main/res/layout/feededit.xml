@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:orientation="vertical"
+        android:background="@drawable/roundededitcorner"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="40dp">
+        <TextView
+            android:id="@+id/start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="7dp"
+            android:text="date"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:orientation="vertical"
+            android:background="@drawable/roundededitcorner"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="40dp">
+            <Spinner
+                android:id="@+id/feededit_pond_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+
+     <!--   <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"> -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundededitcorner"
+                android:layout_marginLeft="3dp"
+                android:id="@+id/total_layout"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="3dp"
+                android:orientation="vertical">
+     <!--    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/feededit_pond_spinner"
+            android:textColor="@android:color/black"/> -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+       android:layout_marginTop="3dp"
+       android:layout_marginRight="3dp"
+       android:layout_marginBottom="3dp"
+
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/pond_name"
+            android:gravity="left"
+            android:textColor="#000000"
+            android:text="V.Pond1 "/>
+       <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:layout_marginLeft="5dp"
+           android:textSize="15sp"
+           android:layout_marginTop="5dp"
+           android:layout_marginBottom="5dp"
+           android:id="@+id/day_feed"
+           android:gravity="center"
+           android:textColor="#000000"
+           android:text="5 / 120"/>
+       <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:layout_marginLeft="5dp"
+           android:layout_marginBottom="5dp"
+           android:textSize="15sp"
+           android:layout_marginTop="5dp"
+           android:gravity="center"
+           android:id="@+id/alerts"
+           android:textColor="#000000"
+           android:text="Alerts"/>
+
+      <!-- <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/tetxview_edit"
+           android:background="@drawable/edit"
+           android:layout_marginRight="5dp"
+           android:textSize="16sp"
+           android:layout_marginTop="3dp"
+           android:textColor="@android:color/black"/> -->
+        </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:id="@+id/view_line"
+                android:background="#a4a4a4"/>
+            <include layout="@layout/shedule_feed_header" android:id="@+id/shedule_feed_header"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:id="@+id/view_line_header"
+                android:background="#a4a4a4"/>
+        <include layout="@layout/group_schedule_layout" android:id="@+id/group_schedule_layout"/>
+            <include layout="@layout/custom_dailog" android:id="@+id/group_basic_layout"/>
+        </LinearLayout>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/feeder_show"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:scrollbars="vertical"
+                            android:orientation="vertical"
+                            android:textColor="@android:color/white">
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+       <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#a4a4a4"/>
+                <!--  <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginLeft="3dp"
+                     android:layout_marginRight="3dp"
+                     android:orientation="vertical">
+                     <ExpandableListView
+                         android:id="@+id/lvExp"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"/>
+                 </LinearLayout> -->
+            </LinearLayout>
+       </LinearLayout>
+    </ScrollView>

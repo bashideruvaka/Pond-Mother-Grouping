@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "28419074363",
+    "firebase_url": "https://pmgp-ee12d.firebaseio.com",
+    "project_id": "pmgp-ee12d",
+    "storage_bucket": "pmgp-ee12d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28419074363:android:0e31b79d00fa8a73",
+        "android_client_info": {
+          "package_name": "eruvaka.pmgp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28419074363-uk62ab2cmlrffq1ceh7j5q0e9jrcjrgu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPYGjygNFdGlnSYREZmyxyflNd2dQ4NWk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

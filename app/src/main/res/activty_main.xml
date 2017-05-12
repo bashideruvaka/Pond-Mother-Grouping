@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+ 
+  <item 
+   android:id="@+id/menu_set1"
+   android:title="@string/action_settings" 
+   android:icon="@drawable/dt2"
+    app:showAsAction="ifRoom">   
+    <menu>
+         <!-- settings -->
+       <!--   <item  android:id="@+id/menu_set"
+          android:title="@string/action_settings" 
+          android:showAsAction="ifRoom" />
+     <item  android:id="@+id/menu_alerts"
+          android:title="Alerts" 
+          android:showAsAction="ifRoom" /> -->
+    <!-- logout -->
+    <item android:id="@+id/menu_logout"
+          android:title="Logout" 
+          android:showAsAction="ifRoom" />
+        </menu>
+    </item>
+   </menu>

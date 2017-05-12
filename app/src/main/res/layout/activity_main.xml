@@ -1,0 +1,199 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!-- <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginRight="5dp"
+       android:layout_marginLeft="5dp"
+       android:layout_marginTop="5dp"
+       android:orientation="horizontal">
+    <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:textSize="16sp"
+           android:gravity="left"
+           android:text="Pond Name"
+           android:layout_marginLeft="30dp"
+           android:textStyle="bold"
+           android:textColor="@android:color/black"
+            />
+
+       <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:textSize="16sp"
+           android:gravity="center"
+           android:textColor="@android:color/black"
+           android:text="D.F/T.F"
+           android:textStyle="bold"
+           />
+       <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="Date"
+           android:gravity="center"
+           android:textSize="16sp"
+           android:textColor="@android:color/black"
+           android:textStyle="bold"
+           />
+
+
+   </LinearLayout>
+       <View
+   android:layout_width="fill_parent"
+   android:layout_height="1dp"
+   android:layout_marginTop="5dp"
+   android:background="#e1dcdc"/>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:orientation="vertical">
+                <ExpandableListView
+                    android:id="@+id/main_lvExp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/roundededitcorner"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"> <Spinner
+        android:id="@+id/pondsspinner1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"/>
+            </LinearLayout>-->
+            <!--  <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 android:layout_marginLeft="3dp"
+                 android:layout_marginRight="3dp"
+                 android:orientation="vertical">
+                 <ExpandableListView
+                     android:id="@+id/main_lvExp"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"/>
+             </LinearLayout>
+       <TableLayout
+            android:id="@+id/tblsetting1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            android:shrinkColumns="*"
+            android:stretchColumns="*"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/white">
+        </TableLayout>-->
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+
+
+
+
+
+
+
+<!--<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+     <ScrollView
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:fillViewport="true">
+     
+ <LinearLayout 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:layout_marginTop="5dp">
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 android:layout_marginLeft="3dp"
+                 android:layout_marginRight="3dp"
+                 android:orientation="vertical">
+                 <ExpandableListView
+                     android:id="@+id/main_lvExp"
+                     android:layout_marginTop="5dp"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"/>
+             </LinearLayout>
+               <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:background="@drawable/roundededitcorner"
+             android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp"> <Spinner
+         android:id="@+id/pondsspinner1"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginRight="5dp"
+         android:layout_marginLeft="5dp"/>
+             </LinearLayout>-->
+             <!--  <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:layout_marginLeft="3dp"
+                  android:layout_marginRight="3dp"
+                  android:orientation="vertical">
+                  <ExpandableListView
+                      android:id="@+id/main_lvExp"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"/>
+              </LinearLayout>
+        <TableLayout
+             android:id="@+id/tblsetting1"
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+             android:scrollbars="vertical"
+             android:shrinkColumns="*"
+             android:stretchColumns="*"
+             android:layout_marginLeft="3dp"
+             android:layout_marginRight="3dp"
+             android:layout_marginBottom="10dp"
+             android:textColor="@android:color/white">
+         </TableLayout>
+        </LinearLayout>
+</ScrollView>
+   </android.support.v4.widget.SwipeRefreshLayout> -->
+
+  
+
+ 

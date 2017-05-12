@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+   
+     <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:background="@drawable/roundededitcorner"
+             android:layout_marginTop="5dp"
+             android:layout_marginLeft="40dp"
+             android:layout_marginRight="40dp">
+             <Spinner
+                 android:id="@+id/pondsId"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="5dp"
+                 android:layout_marginLeft="5dp"/>
+         </LinearLayout>
+       <!--  <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:background="@drawable/roundededitcorner"
+             android:layout_marginTop="5dp"
+             android:layout_marginLeft="40dp"
+             android:layout_marginRight="40dp">
+             <Spinner
+                 android:id="@+id/feederId"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="5dp"
+                 android:layout_marginLeft="5dp"/>
+         </LinearLayout> -->
+
+     <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="3dp" 
+      android:layout_marginLeft="3dp"
+         android:layout_gravity="center"
+      android:orientation="horizontal">
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:text="Feeder Name" 
+        android:textColor="@android:color/black"/>
+
+   <EditText
+     android:id="@+id/feedername"
+     android:layout_width="0dp"
+     android:layout_height="wrap_content"
+     android:layout_weight="1"
+     android:inputType="text"
+     android:ems="10" 
+     android:gravity="center"
+      />
+       
+</LinearLayout>
+  
+    <LinearLayout 
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="3dp" 
+      android:layout_marginLeft="3dp" 
+      android:layout_gravity="center"
+      android:orientation="horizontal">
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:text="1.KG.Disp.Time" 
+        android:textColor="@android:color/black"/>
+
+   <EditText
+     android:id="@+id/okdtime"
+     android:layout_width="0dp"
+     android:layout_height="wrap_content"
+     android:layout_weight="0.5"
+     android:gravity="center"
+     android:inputType="number"
+      />
+     <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        
+        android:textSize="15sp"
+        android:text="    sec" 
+        android:textColor="@android:color/black"/> 
+  
+</LinearLayout> 
+  <LinearLayout 
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="3dp" 
+      android:layout_marginLeft="3dp" 
+      android:layout_marginTop="5dp"
+      android:layout_gravity="center"
+      android:orientation="horizontal">
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:textSize="15sp"
+          android:text="Mode"
+          android:textColor="@android:color/black"/>
+      <Spinner
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:textSize="18sp"
+          android:id="@+id/mode_sp"
+          android:textColor="@android:color/black"/>
+      
+    </LinearLayout>
+   <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="5dp"
+    android:background="#a4a4a4"/> 
+    
+    <Button
+        android:id="@+id/update_settings"
+        android:layout_width="120dp"
+        android:layout_height="39dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp" 
+        android:text="Update"
+        android:background="@drawable/rounded_green" 
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@android:color/white"/>
+  <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="#a4a4a4"/>
+
+  <LinearLayout 
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="3dp" 
+      android:layout_marginLeft="3dp" 
+      android:gravity="center"
+      android:layout_marginTop="15dp"
+      android:orientation="horizontal">
+     
+ 
+  <TextView    
+        android:layout_width="0dp"
+        android:layout_height="39dp"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp" 
+        android:layout_marginLeft="10dp" 
+        android:textSize="15sp"
+        android:text="Stop" 
+        android:id="@+id/tvstatus"
+        android:visibility="invisible"
+        android:textColor="@android:color/black"/> 
+ </LinearLayout>
+ </LinearLayout>
+</LinearLayout>
