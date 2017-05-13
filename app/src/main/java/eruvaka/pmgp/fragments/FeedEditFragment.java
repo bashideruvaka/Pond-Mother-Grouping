@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
@@ -201,7 +202,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                         Toast.makeText(getActivity(), R.string.pastdate, Toast.LENGTH_SHORT).show();
                     } else {
                        if(group_array.size()>0){
-                         basic_mode_update_data();
+                         basicModeUpdateData();
                        }
                     }
                 }catch (Exception e){
@@ -211,24 +212,27 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 break;
         }
     }
-    private void basic_mode_update_data() {
+    private void basicModeUpdateData() {
         try{
             feederSno_array.clear();
             hex_id_arrays.clear();
             JsonObject object =new JsonObject();
             object.addProperty("user_id",user_id);
-            JSONObject loginJson1 = new JSONObject();
-            JSONObject loginJson2 = new JSONObject();
-            JSONObject loginJson3 = new JSONObject();
-            JSONObject loginJson4 = new JSONObject();
-            JSONObject loginJson5 = new JSONObject();
-            JSONObject loginJson6 = new JSONObject();
-            JSONObject loginJson7 = new JSONObject();
-            JSONObject loginJson8 = new JSONObject();
-            JSONObject loginJson9 = new JSONObject();
-            JSONObject loginJson10 = new JSONObject();
-            JSONObject loginJson11 = new JSONObject();
-            JSONObject loginJson12 = new JSONObject();
+
+            JSONObject tfObject = new JSONObject();
+            JSONObject ocfObject = new JSONObject();
+            JSONObject fgObject = new JSONObject();
+            JSONObject scidObject = new JSONObject();
+            JSONObject totalTimeObject = new JSONObject();
+            JSONObject fromTimeObject = new JSONObject();
+            JSONObject toTimeObject = new JSONObject();
+            JSONObject statusObject = new JSONObject();
+            JSONObject modeObject = new JSONObject();
+            JSONObject onTimeObject = new JSONObject();
+            JSONObject offtimeObject = new JSONObject();
+
+
+
             ArrayList<String> ids_array=new ArrayList<>();
             for (int i = 0; i < mylist.size(); i++) {
                 final HashMap<String, String> map1 = mylist.get(i);
@@ -251,7 +255,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 JSONArray to_time_array=new JSONArray();
                 JSONArray total_time_array=new JSONArray();
                 JSONArray status_array=new JSONArray();
-                JSONArray hex_id_array=new JSONArray();
                 JSONArray mode_array=new JSONArray();
                 JSONArray ontime_array=new JSONArray();
                 JSONArray offtime_array=new JSONArray();
@@ -275,13 +278,12 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                     //String schedule_id = map.get("schedule_id").toString().trim();
                     //System.out.println("second"+schedule_id);
                     //ids_array.add(schedule_id);
-                    HashSet<String> hashSet2 = new HashSet<String>();
+                  /*  HashSet<String> hashSet2 = new HashSet<String>();
                     hashSet2.addAll(ids_array);
                     ids_array.clear();
-                    ids_array.addAll(hashSet2);
+                    ids_array.addAll(hashSet2);*/
                     for(int y=0;y<ids_array.size();y++){
                         scid_array.put(ids_array.get(y));
-                        loginJson4.put(feederSno,scid_array);
                     }
                     String from_time = map.get("from_time").toString().trim();
                     String to_time = map.get("to_time").toString().trim();
@@ -315,38 +317,36 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                     mode_array.put(mode);
                     ontime_array.put("0");
                     offtime_array.put("0");
-                    loginJson1.put(feederSno,tf_array);
-                    loginJson2.put(feederSno,ocf_array);
-                    loginJson3.put(feederSno,fg_array);
-                    loginJson6.put(feederSno,total_time_array);
-                    loginJson7.put(feederSno,from_time_array);
-                    loginJson8.put(feederSno,to_time_array);
-                    loginJson9.put(feederSno,status_array);
-                    loginJson10.put(feederSno,mode_array);
-                    loginJson11.put(feederSno,ontime_array);
-                    loginJson12.put(feederSno,offtime_array);
+                    tfObject.put(feederSno,tf_array);
+                    ocfObject.put(feederSno,ocf_array);
+                    fgObject.put(feederSno,fg_array);
+                    scidObject.put(feederSno,scid_array);
+                    totalTimeObject.put(feederSno,total_time_array);
+                    fromTimeObject.put(feederSno,from_time_array);
+                    toTimeObject.put(feederSno,to_time_array);
+                    statusObject.put(feederSno,status_array);
+                    modeObject.put(feederSno,mode_array);
+                    onTimeObject.put(feederSno,ontime_array);
+                    offtimeObject.put(feederSno,offtime_array);
                 }
-                object.addProperty("original_feed",  loginJson1.toString());
-                object.addProperty("one_cycle_feed", loginJson2.toString());
-                object.addProperty("feed_gap", loginJson3.toString());
-                object.addProperty("schedule_id",  loginJson4.toString());
-                object.addProperty("total_time",  loginJson6.toString());
-                object.addProperty("from_time",  loginJson7.toString());
-                object.addProperty("to_time", loginJson8.toString());
-                object.addProperty("status", loginJson9.toString());
-                object.addProperty("mode",  loginJson10.toString());
-                object.addProperty("on_time", loginJson11.toString());
-                object.addProperty("off_time",  loginJson12.toString());
+
             }
 
+            object.addProperty("original_feed",  tfObject.toString());
+            object.addProperty("one_cycle_feed", ocfObject.toString());
+            object.addProperty("feed_gap", fgObject.toString());
+            object.addProperty("schedule_id",  scidObject.toString());
+            object.addProperty("total_time",  totalTimeObject.toString());
+            object.addProperty("from_time",  fromTimeObject.toString());
+            object.addProperty("to_time", toTimeObject.toString());
+            object.addProperty("status", statusObject.toString());
+            object.addProperty("mode",  modeObject.toString());
+            object.addProperty("on_time", onTimeObject.toString());
+            object.addProperty("off_time",  offtimeObject.toString());
             object.addProperty("feederSno",  feederSno_array.toString());
             object.addProperty("feeder_hexid",  hex_id_arrays.toString());
             System.out.println(object);
-            final Calendar calender1=new GregorianCalendar(TimeZone.getTimeZone(timezone));
-            final Date date1 = new Date(calender1.getTimeInMillis());
-            SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            format2.setTimeZone(TimeZone.getTimeZone(timezone));
-            String currenttimestr1=format2.format(date1).toString().trim();
+            String currenttimestr1 = getCurrentDateInStringFormat("yyyy-MM-dd");
             object.addProperty("schedule_start_date", currenttimestr1);
             object.addProperty("schedule_end_date", currenttimestr1);
             Call<JsonObject> call = util.getBaseClassService_update_schedules().update(object);
@@ -376,6 +376,16 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             e.printStackTrace();
         }
     }
+
+    @NonNull
+    private String getCurrentDateInStringFormat(String format) {
+        final Calendar calender1=new GregorianCalendar(TimeZone.getTimeZone(timezone));
+        final Date date1 = new Date(calender1.getTimeInMillis());
+        SimpleDateFormat format2 = new SimpleDateFormat(format, Locale.getDefault());
+        format2.setTimeZone(TimeZone.getTimeZone(timezone));
+        return format2.format(date1).toString().trim();
+    }
+
     private void startdialog() {
         DatePickerStartFragment date = new DatePickerStartFragment();
 
@@ -718,11 +728,8 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                        e.printStackTrace();
                    }
                   try {
-                      final Calendar calender = new GregorianCalendar(TimeZone.getTimeZone(timezone));
-                      final Date date = new Date(calender.getTimeInMillis());
-                      final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-                      dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-                      String currenttimestr = dateFormat.format(date).toString().trim();
+
+                      String currenttimestr =getCurrentDateInStringFormat("HH:mm");
                       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
                        simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
                       Date ftime = simpleDateFormat.parse(fromtime.getText().toString());
