@@ -51,6 +51,7 @@ import java.util.TimeZone;
 import eruvaka.pmgp.Activitys.SingleFeederActivty;
 import eruvaka.pmgp.Database.DBHelper;
 import eruvaka.pmgp.R;
+import eruvaka.pmgp.classes.ScheduleSaveData;
 import eruvaka.pmgp.common.MapComparator;
 import eruvaka.pmgp.common.UserSession;
 import eruvaka.pmgp.common.Utillity;
@@ -214,11 +215,11 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
     }
     private void basicModeUpdateData() {
         try{
+            ScheduleSaveData.add(mylist,group_array);
             feederSno_array.clear();
             hex_id_arrays.clear();
             JsonObject object =new JsonObject();
             object.addProperty("user_id",user_id);
-
             JSONObject tfObject = new JSONObject();
             JSONObject ocfObject = new JSONObject();
             JSONObject fgObject = new JSONObject();
@@ -230,8 +231,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             JSONObject modeObject = new JSONObject();
             JSONObject onTimeObject = new JSONObject();
             JSONObject offtimeObject = new JSONObject();
-
-
 
             ArrayList<String> ids_array=new ArrayList<>();
             for (int i = 0; i < mylist.size(); i++) {
@@ -331,7 +330,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 }
 
             }
-
             object.addProperty("original_feed",  tfObject.toString());
             object.addProperty("one_cycle_feed", ocfObject.toString());
             object.addProperty("feed_gap", fgObject.toString());
@@ -345,7 +343,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             object.addProperty("off_time",  offtimeObject.toString());
             object.addProperty("feederSno",  feederSno_array.toString());
             object.addProperty("feeder_hexid",  hex_id_arrays.toString());
-            System.out.println(object);
+
             String currenttimestr1 = getCurrentDateInStringFormat("yyyy-MM-dd");
             object.addProperty("schedule_start_date", currenttimestr1);
             object.addProperty("schedule_end_date", currenttimestr1);
