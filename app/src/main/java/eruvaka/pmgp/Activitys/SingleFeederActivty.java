@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -126,7 +127,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
             if(feeder_mode.equals("78")){
                 basic_layout.setVisibility(View.VISIBLE);
                 liner_table.setVisibility(View.GONE);
-                 basicmodeData();
+                 basicModeData();
             }else if(feeder_mode.equals("79")){
                 liner_table.setVisibility(View.VISIBLE);
                 basic_layout.setVisibility(View.GONE);
@@ -138,7 +139,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
                 showSchedules(feeder_mode,schedule_date,last_update_time);
             }
         }
-        create_StartDate();
+        setStartDate();
         txtStockEntryDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -170,7 +171,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
         }
 
     };
-    private void create_StartDate() {
+    private void setStartDate() {
         final Calendar calender = Calendar.getInstance();
         final Date date = new Date(calender.getTimeInMillis());
         day = calender.get(Calendar.DATE);
@@ -182,7 +183,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
             txtStockEntryDate.setText(dateFormat.format(date));
         }
     }
-    private void basicmodeData() {
+    private void basicModeData() {
         try {
              for(int i=0;i<schedules_list.size();i++) {
                  final HashMap<String, String> map = schedules_list.get(i);
@@ -1109,7 +1110,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
             group_schedule_update.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                     schedulemode_CheckData();
+                     scheduleModeCheckData();
                 }
             });
 
@@ -1285,14 +1286,14 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.group_basic_update:
-                  basicmode_CheckData();
+                  basicModeCheckData();
                 break;
             case R.id.group_schedule_update:
-                schedulemode_CheckData();
+                scheduleModeCheckData();
                 break;
         }
     }
-    private void schedulemode_CheckData() {
+    private void scheduleModeCheckData() {
         try{
               if (group_array.size() > 0) {
                 ArrayList<String> error = new ArrayList<String>();
@@ -1363,7 +1364,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
                     Toast.makeText(SingleFeederActivty.this, R.string.pastdate, Toast.LENGTH_SHORT).show();
 
                 } else {
-                    if (update_Schedules()) {
+                    if (updateSchedules()) {
                       //schedule_mode_update_toserver();
                         update_arraylist.clear();
                         System.out.println(group_array);
@@ -1394,7 +1395,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
                             update_arraylist.add(map1);
                         }
                         if(update_arraylist.size()>0){
-                            basic_mode_upadte_schedules(feederSno);
+                            basicModeUpadteSchedules(feederSno);
                         }
                     }
                 }
@@ -1403,7 +1404,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
     }
-    private boolean update_Schedules() {
+    private boolean updateSchedules() {
 
             try {
                 Collections.sort(group_array, new MapComparator("from_time"));
@@ -1490,7 +1491,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
         return false;
     }
     //basic mode update data
-    private void  basicmode_CheckData(){
+    private void  basicModeCheckData(){
         update_arraylist.clear();
         HashMap<String, String> map1 = new HashMap<String, String>();
         for (int i = 0; i < send_list.size(); i++) {
@@ -1545,7 +1546,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
                 map1.put("status", status);
                 update_arraylist.add(map1);
                 if (update_arraylist.size() > 0) {
-                    basic_mode_upadte_schedules(feederSno);
+                    basicModeUpadteSchedules(feederSno);
                 }
             }
 
@@ -1553,7 +1554,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
     }
-    private void basic_mode_upadte_schedules(String feedersno) {
+    private void basicModeUpadteSchedules(String feedersno) {
         JsonObject object = new JsonObject();
         object.addProperty("user_id", user_id);
         object.addProperty("feederSno", feedersno);
@@ -1562,7 +1563,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
         SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         format2.setTimeZone(TimeZone.getTimeZone(timezone));
         String currenttimestr1=format2.format(date1).toString().trim();
-        object.addProperty("schedule_start_date", currenttimestr1);
+        object.addProperty("schedule_date", currenttimestr1);
         object.addProperty("schedule_end_date", currenttimestr1);
         // arrays
         ArrayList<String> total_feed_array=new ArrayList<>();
@@ -1621,7 +1622,7 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 Log.e("--", "onResponse : " + response.code() + "--" + response.isSuccessful());
                 if (response.isSuccessful()) {
-                    // processResponse(response.body());
+                     processResponse(response.body());
                     Log.e("Single Feeder Update ",response.body().toString());
                     //Utils util = new Utils(contextfeedentry);
                     util.dismissDialog();
@@ -1641,5 +1642,32 @@ public class SingleFeederActivty extends AppCompatActivity implements View.OnCli
 
         });
     }
+    private void processResponse(JsonObject jsn) {
+        try{
+            String result=  jsn.toString();
+            JSONObject jsnobj = new JSONObject(result);
+            String status = jsnobj.getString("status");
+            String zero = "0".toString().trim();
+            if (status.equals(zero)) {
+                String error=jsnobj.getString("error");
+                util.showAlertDialog(this,"Response ",error,new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+            }else{
+                String success = jsnobj.getString("data");
+                JSONObject jsn2 = new JSONObject(success);
+                String response2 = jsn2.getString("response");
+                util.showAlertDialog(this,"Response ",response2,new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

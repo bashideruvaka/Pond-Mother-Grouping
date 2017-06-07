@@ -37,8 +37,7 @@ public class DatePickerStartFragment extends DialogFragment {
 
 	public DatePicker getDatePicker() {
 		// TODO Auto-generated method stub
-		 
-		return null;
+			return null;
 	}
 
 	 

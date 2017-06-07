@@ -138,7 +138,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
         PondName=session.get("pond_name");
         pond_sno=session.get("pond_sno");
         timezone=session.get("timezone");
-        create_StartDate();
+        createStartDate();
         start_date.setOnClickListener(this);
         // add ponds to spinarray
         try {
@@ -158,7 +158,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
         }catch (Exception e) {
             e.printStackTrace();
         }
-
         return v;
     }
     @Override
@@ -231,7 +230,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             JSONObject modeObject = new JSONObject();
             JSONObject onTimeObject = new JSONObject();
             JSONObject offtimeObject = new JSONObject();
-
             ArrayList<String> ids_array=new ArrayList<>();
             for (int i = 0; i < mylist.size(); i++) {
                 final HashMap<String, String> map1 = mylist.get(i);
@@ -258,32 +256,21 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 JSONArray ontime_array=new JSONArray();
                 JSONArray offtime_array=new JSONArray();
                 final JSONArray jsonArray = new JSONArray(schedules);
-                ids_array.clear();
-                for (int x = 0; x < jsonArray.length(); x++) {
-                    JSONObject jObject = jsonArray.getJSONObject(x);
-                    String schedule_id=jObject.getString("schedule_id");
-                    String status_new=jObject.getString("status");
-                    if(status_new.equals("completed")){
-                        ids_array.add("0");
-                    }else{
-                        // scid_array.put( schedule_id);
-                        ids_array.add(schedule_id);
-                        System.out.println("main"+schedule_id);
+                 if(jsonArray.length()>0){
+                    for (int x = 0; x < jsonArray.length(); x++) {
+                        JSONObject jObject = jsonArray.getJSONObject(x);
+                        String schedule_id = jObject.getString("schedule_id");
+                        scid_array.put(schedule_id);
+                        scidObject.put(feederSno,scid_array);
                     }
-                }
-
+                }else{
+                     scid_array.put("0");
+                     scidObject.put(feederSno,scid_array);
+                 }
                 for (int j = 0; j < group_array.size(); j++) {
                     HashMap<String, String> map = group_array.get(j);
-                    //String schedule_id = map.get("schedule_id").toString().trim();
-                    //System.out.println("second"+schedule_id);
-                    //ids_array.add(schedule_id);
-                  /*  HashSet<String> hashSet2 = new HashSet<String>();
-                    hashSet2.addAll(ids_array);
-                    ids_array.clear();
-                    ids_array.addAll(hashSet2);*/
-                    for(int y=0;y<ids_array.size();y++){
-                        scid_array.put(ids_array.get(y));
-                    }
+                    String schedule_id = map.get("schedule_id").toString().trim();
+                    System.out.println(schedule_id);
                     String from_time = map.get("from_time").toString().trim();
                     String to_time = map.get("to_time").toString().trim();
                     //String totalTime = map.get("totalTime").toString().trim();
@@ -319,7 +306,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                     tfObject.put(feederSno,tf_array);
                     ocfObject.put(feederSno,ocf_array);
                     fgObject.put(feederSno,fg_array);
-                    scidObject.put(feederSno,scid_array);
+                    //scidObject.put(feederSno,scid_array);
                     totalTimeObject.put(feederSno,total_time_array);
                     fromTimeObject.put(feederSno,from_time_array);
                     toTimeObject.put(feederSno,to_time_array);
@@ -330,6 +317,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 }
 
             }
+
             object.addProperty("original_feed",  tfObject.toString());
             object.addProperty("one_cycle_feed", ocfObject.toString());
             object.addProperty("feed_gap", fgObject.toString());
@@ -343,7 +331,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             object.addProperty("off_time",  offtimeObject.toString());
             object.addProperty("feederSno",  feederSno_array.toString());
             object.addProperty("feeder_hexid",  hex_id_arrays.toString());
-
+            System.out.println(object);
             String currenttimestr1 = getCurrentDateInStringFormat("yyyy-MM-dd");
             object.addProperty("schedule_start_date", currenttimestr1);
             object.addProperty("schedule_end_date", currenttimestr1);
@@ -354,7 +342,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Log.e("--", "onResponse : " + response.code() + "--" + response.isSuccessful());
                     if (response.isSuccessful()) {
-                        feededit_Response(response.body());
+                        feedEditResponse(response.body());
                         util.dismissDialog();
                     } else {
                     }
@@ -383,11 +371,9 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
         format2.setTimeZone(TimeZone.getTimeZone(timezone));
         return format2.format(date1).toString().trim();
     }
-
     private void startdialog() {
-        DatePickerStartFragment date = new DatePickerStartFragment();
-
         try {
+            DatePickerStartFragment date = new DatePickerStartFragment();
             final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
             dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
             String from_date = start_date.getText().toString().trim();
@@ -406,7 +392,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             date.setArguments(args);
             date.setCallBack(ondate);
             date.show(getChildFragmentManager(), "Date Picker");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -461,7 +446,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             }
         }
     };
-    private void create_StartDate() {
+    private void createStartDate() {
         final Calendar calender = Calendar.getInstance();
         final Date date = new Date(calender.getTimeInMillis());
         mStartDay = calender.get(Calendar.DATE);
@@ -474,7 +459,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
 
         }
     }
-    private void check_Group_Edit() {
+    private void checkGroupEdit() {
         final ArrayList<String> basic_mode=new ArrayList<>();
         ArrayList<String> schedule_mode=new ArrayList<>();
         ArrayList<String> error_check=new ArrayList<>();
@@ -542,13 +527,13 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 basic_layout.setVisibility(View.VISIBLE);
                 header_layout.setVisibility(View.GONE);
                 view_line_header.setVisibility(View.GONE);
-                basic_mode_GroupData();
+                basicModeGroupData();
             }else if(a==s){
                 basic_layout.setVisibility(View.GONE);
                 schedule_layout.setVisibility(View.VISIBLE);
                 header_layout.setVisibility(View.VISIBLE);
                 view_line_header.setVisibility(View.VISIBLE);
-                schedule_mode_GroupData();
+                scheduleModeGroupData();
             }else{
                 schedule_layout.setVisibility(View.GONE);
                 basic_layout.setVisibility(View.GONE);
@@ -558,8 +543,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
         }
 
     }
-    /// dialog update schedules into each feeder
-    private void schedule_mode_GroupData() {
+    private void scheduleModeGroupData() {
                int size=mylist.size();
                Utillity.add_mylist_size(size);
             try{
@@ -1133,7 +1117,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             group_schedule_update.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    schedulemode_CheckData();
+                    scheduleModeCheckData();
                     //schedule_mode_update_data();
                 }
             });
@@ -1144,7 +1128,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             format2.setTimeZone(TimeZone.getTimeZone(timezone));
             String schedule_last_date = format2.format(f_date);
             String current_date = format2.format(System.currentTimeMillis());
-
             Animation anim = new AlphaAnimation(0.0f, 1.0f);
             anim.setDuration(50); //You can manage the time of the blink with this parameter
             anim.setStartOffset(20);
@@ -1266,7 +1249,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             e.printStackTrace();
         }
     }
-    private void schedulemode_CheckData() {
+    private void scheduleModeCheckData() {
         try{
             if (group_array.size() > 0) {
                 ArrayList<String> error = new ArrayList<String>();
@@ -1337,17 +1320,18 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                     Toast.makeText(getActivity(), R.string.pastdate, Toast.LENGTH_SHORT).show();
 
                 } else {
-                    if (update_Schedules()) {
-                        schedule_mode_update_data();
+                    if (updateSchedules()) {
+                        scheduleModeUpdateData();
 
                     }
+
                 }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    private boolean update_Schedules() {
+    private boolean updateSchedules() {
 
         try {
             Collections.sort(group_array, new MapComparator("from_time"));
@@ -1412,12 +1396,10 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             int tohour = time2.getHours();
             int tominute = time2.getMinutes();
             //Log.e(TAG, "compareValues:: fromhour:"+fromhour + ":fromminute:"+fromminute+":tohour:"+tohour+":tominute:"+tominute);
-
             // do not comment on this time and accept it as correct time. Here Toast message is not required to show. so return false.
             if ((23 == tohour) && (59 == tominute) && (fromhour == 23) && (fromminute == 59)) {
                 return false;
             }
-
             // wrong time. FromHour > ToHour. return true to show Toast message to user.
             if (fromhour > tohour) {
                 return true;
@@ -1433,7 +1415,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
         // correct time
         return false;
     }
-    private void schedule_mode_update_data() {
+    private void scheduleModeUpdateData() {
         try{
             feederSno_array.clear();
             hex_id_arrays.clear();
@@ -1488,8 +1470,9 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                     }else{
                      // scid_array.put( schedule_id);
                       ids_array.add(schedule_id);
-                         System.out.println("main"+schedule_id);
+
                   }
+                    System.out.println(ids_array);
                   }
 
                 for (int j = 0; j < group_array.size(); j++) {
@@ -1579,7 +1562,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Log.e("--", "onResponse : " + response.code() + "--" + response.isSuccessful());
                     if (response.isSuccessful()) {
-                      feededit_Response(response.body());
+                      feedEditResponse(response.body());
                         util.dismissDialog();
                     } else {
                     }
@@ -1599,7 +1582,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             e.printStackTrace();
         }
     }
-    private void basic_mode_GroupData() {
+    private void basicModeGroupData() {
         schedules_list1.clear();
         final String dt2 = Utillity.getCurrenttime(getActivity());
         schedules_list1=Utillity.getJosnarray(mylist,dt2);
@@ -1672,6 +1655,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                     pause.setVisibility(View.INVISIBLE);
                     tvstatus.setText("completed");
                 }
+                final HashMap<String, String> map1 = new HashMap<String, String>();
                 start.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -1683,6 +1667,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                         pause.setVisibility(View.VISIBLE);
                         start.setVisibility(View.INVISIBLE);
                         tvstatus.setText("running");
+                        map1.put("status", tvstatus.getText().toString().trim());
                     }
                 });
                 pause.setOnClickListener(new View.OnClickListener() {
@@ -1696,6 +1681,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                         stop.setVisibility(View.VISIBLE);
                         pause.setVisibility(View.INVISIBLE);
                         tvstatus.setText("paused");
+                        map1.put("status", tvstatus.getText().toString().trim());
                     }
                 });
                 stop.setOnClickListener(new View.OnClickListener() {
@@ -1708,10 +1694,12 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                         stop.setVisibility(View.INVISIBLE);
                         pause.setVisibility(View.INVISIBLE);
                         tvstatus.setText("completed");
+                        map1.put("status", tvstatus.getText().toString().trim());
+
                     }
                 });
                 group_array.clear();
-                final HashMap<String, String> map1 = new HashMap<String, String>();
+
                 final String status1 = tvstatus.getText().toString().trim();
                 if (status1.equals("completed")) {
                     map1.put("schedule_id", "0");
@@ -1722,7 +1710,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                     map1.put("mode", mode);
                     map1.put("dispensed_feed",dispensed_feed);
                     tvstatus.setVisibility(View.VISIBLE);
-                    tvstatus.setText("running");
+                    //tvstatus.setText("running");
                     map1.put("status", tvstatus.getText().toString().trim());
                     totalfeed_et.setText(" ");
                     ocf_et.setText("");
@@ -1958,7 +1946,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             e.printStackTrace();
         }
     }
-    private void feeder_Show(){
+    private void feederShow(){
         try {
             feeder_rowLayout.setVerticalScrollBarEnabled(true);
             feeder_rowLayout.removeAllViewsInLayout();
@@ -2110,145 +2098,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
 
         });
     }
-    private void update_schedules(){
-        try {
-            JsonObject object =new JsonObject();
-            object.addProperty("user_id",user_id);
-            feederSno_array.clear();
-            feederSno_array2.clear();
-            hex_id_arrays.clear();
-            //database update
-            helper=new DBHelper(getActivity());
-            database=helper.getReadableDatabase();
-            String query = ("select * from feedentry");
-            Cursor cursor = database.rawQuery(query, null);
-            if(cursor != null){
-                if(cursor.moveToFirst()){
-                    do{
-                        String FID = cursor.getString(cursor.getColumnIndex("FID"));
-                        String HEXID = cursor.getString(cursor.getColumnIndex("HEXID"));
-                        feederSno_array.add(FID);
-                        feederSno_array2.add("\"" + FID + "\"");
-                        hex_id_arrays.add("\"" + HEXID + "\"");
-                    }	while(cursor.moveToNext());
-                }
-            }
-            HashSet<String> hashSet = new HashSet<String>();
-            hashSet.addAll(feederSno_array2);
-            feederSno_array2.clear();
-            feederSno_array2.addAll(hashSet);
-            HashSet<String> hashSet1 = new HashSet<String>();
-            hashSet1.addAll(hex_id_arrays);
-            hex_id_arrays.clear();
-            hex_id_arrays.addAll(hashSet1);
-            object.addProperty("feederSno",  feederSno_array2.toString());
-            object.addProperty("feeder_hexid",  hex_id_arrays.toString());
-
-            JSONObject loginJson1 = new JSONObject();
-            JSONObject loginJson2 = new JSONObject();
-            JSONObject loginJson3 = new JSONObject();
-            JSONObject loginJson4 = new JSONObject();
-            JSONObject loginJson5 = new JSONObject();
-            JSONObject loginJson6 = new JSONObject();
-            JSONObject loginJson7 = new JSONObject();
-            JSONObject loginJson8 = new JSONObject();
-            JSONObject loginJson9 = new JSONObject();
-            JSONObject loginJson10 = new JSONObject();
-            JSONObject loginJson11 = new JSONObject();
-            JSONObject loginJson12 = new JSONObject();
-
-            for(int j=0;j<feederSno_array.size();j++){
-                String str1=feederSno_array.get(j).toString().trim();
-                helper=new DBHelper(getActivity());
-                database=helper.getReadableDatabase();
-                String query1 = ("select * from feedentry  where  FID ='" + str1 + "'");
-                Cursor cursor1 = database.rawQuery(query1, null);
-                JSONArray tf_array=new JSONArray();
-                JSONArray scid_array=new JSONArray();
-                JSONArray ocf_array=new JSONArray();
-                JSONArray fg_array=new JSONArray();
-                JSONArray df_array=new JSONArray();
-                JSONArray from_time_array=new JSONArray();
-                JSONArray to_time_array=new JSONArray();
-                JSONArray total_time_array=new JSONArray();
-                JSONArray status_array=new JSONArray();
-                JSONArray hex_id_array=new JSONArray();
-                JSONArray mode_array=new JSONArray();
-                JSONArray ontime_array=new JSONArray();
-                JSONArray offtime_array=new JSONArray();
-
-                for(int x=0;x<cursor1.getCount();x++){
-                    cursor1.moveToPosition(x);
-                    tf_array.put(cursor1.getString(cursor1.getColumnIndex("TF")));
-                    total_time_array.put(cursor1.getString(cursor1.getColumnIndex("TOTAL_TIME")));
-                    from_time_array.put(cursor1.getString(cursor1.getColumnIndex("FROM_TIME")));
-                    to_time_array.put(cursor1.getString(cursor1.getColumnIndex("TO_TIME")));
-                    status_array.put(cursor1.getString(cursor1.getColumnIndex("STATUS")));
-                    ocf_array.put(cursor1.getString(cursor1.getColumnIndex("OCF")));
-                    fg_array.put(cursor1.getString(cursor1.getColumnIndex("FG")));
-                    hex_id_array.put(cursor1.getString(cursor1.getColumnIndex("HEXID")));
-                    scid_array.put( cursor1.getString(cursor1.getColumnIndex("SCHDID")));
-                    mode_array.put( cursor1.getString(cursor1.getColumnIndex("MODE")));
-                    ontime_array.put("0");
-                    offtime_array.put("0");
-                    loginJson1.put(str1,tf_array);
-                    loginJson2.put(str1,ocf_array);
-                    loginJson3.put(str1,fg_array);
-                    loginJson4.put(str1,scid_array);
-                    loginJson6.put(str1,total_time_array);
-                    loginJson7.put(str1,from_time_array);
-                    loginJson8.put(str1,to_time_array);
-                    loginJson9.put(str1,status_array);
-                    loginJson10.put(str1,mode_array);
-                    loginJson11.put(str1,ontime_array);
-                    loginJson12.put(str1,offtime_array);
-                }
-                object.addProperty("original_feed",  loginJson1.toString());
-                object.addProperty("one_cycle_feed", loginJson2.toString());
-                object.addProperty("feed_gap", loginJson3.toString());
-                object.addProperty("schedule_id",  loginJson4.toString());
-                //object.addProperty("feeder_hexid",  loginJson5.toString());
-                object.addProperty("total_time",  loginJson6.toString());
-                object.addProperty("from_time",  loginJson7.toString());
-                object.addProperty("to_time", loginJson8.toString());
-                object.addProperty("status", loginJson9.toString());
-                object.addProperty("mode",  loginJson10.toString());
-                object.addProperty("on_time", loginJson11.toString());
-                object.addProperty("off_time",  loginJson12.toString());
-            }
-            final Calendar calender1=new GregorianCalendar(TimeZone.getTimeZone(timezone));
-            final Date date1 = new Date(calender1.getTimeInMillis());
-            SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            format2.setTimeZone(TimeZone.getTimeZone(timezone));
-            String currenttimestr1=format2.format(date1).toString().trim();
-            object.addProperty("schedule_start_date", currenttimestr1);
-            object.addProperty("schedule_end_date", currenttimestr1);
-        Call<JsonObject> call = util.getBaseClassService_update_schedules().update(object);
-        util.showProgressDialog();
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.e("--", "onResponse : " + response.code() + "--" + response.isSuccessful());
-               if (response.isSuccessful()) {
-                    //processResponse(response.body());
-                   util.dismissDialog();
-               } else {
-               }
-                util.dismissDialog();
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.e("--", "onFailure : ");
-                t.printStackTrace();
-                util.dismissDialog();
-            }
-
-        });
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
     private void retrieveFeedersClassData(final String pondsno) {
         try {
             JsonObject object = new JsonObject();
@@ -2324,9 +2173,9 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                 }
                 if(mylist!=null){
                     // check grouping edit
-                     check_Group_Edit();
+                     checkGroupEdit();
                     //show schedules on Listview individual feedershow
-                    feeder_Show();
+                    feederShow();
                 }
             }
         }catch (Exception e){
@@ -2334,7 +2183,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
         }
 
     }
-    private void feededit_Response(JsonObject jsnobj) {
+    private void feedEditResponse(JsonObject jsnobj) {
         try{
             String result = jsnobj.toString();
             JSONObject jsn = new JSONObject(result);
@@ -2342,7 +2191,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
             String zero = "0".toString().trim();
             if (status.equals(zero)) {
                 String error = jsn.getString("error");
-                util.showAlertDialog(getActivity(), "Schedule Edit Response ", error, new DialogInterface.OnClickListener() {
+                util.showAlertDialog(getActivity(), "Schedules Response ", error, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

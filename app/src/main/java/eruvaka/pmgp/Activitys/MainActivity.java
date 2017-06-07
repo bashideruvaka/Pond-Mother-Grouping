@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity  {
         expListView=(ExpandableListView)findViewById(R.id.main_lvExp);
         expListView.setGroupIndicator(null);
         //getting ponds data from server
-        getPondDetailsClassData(user_id);
+        getPondsData(user_id);
     }
-    private void getPondDetailsClassData(String user_id) {
+    private void getPondsData(String user_id) {
         JsonObject object =new JsonObject();
         object.addProperty("user_id",user_id);
         Call<JsonObject> call = util.getBaseClassService_pond().pondsdata(object);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 Log.e("--", "onResponse : " + response.code() + "--" + response.isSuccessful());
                 if (response.isSuccessful()) {
-                    processResponse_getponddeatils(response.body());
+                    pondsDataResponse(response.body());
                 } else {
 
                 }
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
-    private void processResponse_getponddeatils(JsonObject jsn) {
+    private void pondsDataResponse(JsonObject jsn) {
         try{
             String result=  jsn.toString();
             JSONObject jsnobj = new JSONObject(result);
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity  {
                     pondArrList.add(mapping);
                 }
                 if(pondArrList.size()>0){
-                    pondsDisplay();
+                    showPonds();
                 }
             }
         }catch (Exception e){
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity  {
         }
 
     }
-    private void pondsDisplay() {
+    private void showPonds() {
         try {
             listFeedGroupData = new ArrayList<GroupData>();
             List<ChildData> childdata = null;
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity  {
         // TODO Auto-generated method stub
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                getPondDetailsClassData(user_id);
+                getPondsData(user_id);
                 return true;
             case R.id.action_settings1:
                 try{

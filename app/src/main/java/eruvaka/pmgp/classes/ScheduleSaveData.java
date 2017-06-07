@@ -198,7 +198,8 @@ public class ScheduleSaveData {
                 JSONArray ontime_array = new JSONArray();
                 JSONArray offtime_array = new JSONArray();
                 final JSONArray jsonArray = new JSONArray(schedules);
-                ids_array.clear();for (int x = 0; x < jsonArray.length(); x++) {
+                ids_array.clear();
+                for (int x = 0; x < jsonArray.length(); x++) {
                     JSONObject jObject = jsonArray.getJSONObject(x);
                     String schedule_id=jObject.getString("schedule_id");
                     String status_new=jObject.getString("status");

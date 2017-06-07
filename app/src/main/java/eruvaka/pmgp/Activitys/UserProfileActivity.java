@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -21,7 +24,11 @@ import java.util.regex.Pattern;
 
 import eruvaka.pmgp.R;
 import eruvaka.pmgp.common.UserSession;
+import eruvaka.pmgp.common.Utils;
 import eruvaka.pmgp.login.Login;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by eruvaka on 28-02-2017.
@@ -38,6 +45,7 @@ public class UserProfileActivity extends ActionBarActivity {
     Context context;
     ProgressDialog myDialog;
     String user_id;
+    Utils util;
     /* (non-Javadoc)
      * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
      */
@@ -53,6 +61,7 @@ public class UserProfileActivity extends ActionBarActivity {
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
         context=getApplicationContext();
+        util = new Utils(context);
         userPreferenceData = new UserSession(getApplicationContext());
         user_id = userPreferenceData.get("user_id");
         String FirstName=userPreferenceData.get("firstname");
@@ -105,7 +114,33 @@ public class UserProfileActivity extends ActionBarActivity {
 
                         Toast.makeText(getApplicationContext(), "please Enter Valid Email Id", Toast.LENGTH_SHORT).show();
                     }else{
+                      try{
+                          JsonObject object =new JsonObject();
+                          object.addProperty("user_id",user_id);
+                          Call<JsonObject> call = util.getAdapterUserprofileData().updateprofile(object);
+                          util.showProgressDialog();
+                          call.enqueue(new Callback<JsonObject>() {
+                              @Override
+                              public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                  Log.e("--", "onResponse : " + response.code() + "--" + response.isSuccessful());
+                                  if (response.isSuccessful()) {
+                                      userProfileData(response.body());
+                                  } else {
 
+                                  }
+                                  util.dismissDialog();
+                              }
+                              @Override
+                              public void onFailure(Call<JsonObject> call, Throwable t) {
+                                  Log.e("--", "onFailure : ");
+                                  t.printStackTrace();
+                                  Toast.makeText(UserProfileActivity.this,"unable  to get data please try again",Toast.LENGTH_SHORT).show();
+                                  util.dismissDialog();
+                              }
+                          });
+                      }catch (Exception e){
+                          e.printStackTrace();
+                      }
                     }
 
                 }catch(Exception e){
@@ -115,10 +150,11 @@ public class UserProfileActivity extends ActionBarActivity {
         });
 
     }
-    private void loginSaveData(String s) {
+    private void userProfileData(JsonObject jsn) {
         try {
-            String json_result = s.toString();
-            JSONObject json = new JSONObject(json_result);
+            String result=  jsn.toString();
+
+            JSONObject json = new JSONObject(result);
             String status = json.getString("status");
             String zero = "0".toString().trim();
             if (status.equals(zero)) {
@@ -128,8 +164,6 @@ public class UserProfileActivity extends ActionBarActivity {
                 try {
                     String response = json.getString("response");
                     String user_data = json.getString("data");
-
-
                     JSONObject jsn2 = new JSONObject(user_data);
                     String FirstName = jsn2.getString("firstname");
                     String lastname = jsn2.getString("lastname");

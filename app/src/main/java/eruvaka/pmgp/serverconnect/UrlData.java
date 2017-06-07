@@ -9,6 +9,7 @@ public class UrlData {
 	public static final String URL_UPDATE="updateSchedules";
 	public static final String URL_FEEDERS_LOGS="feederlogs";
 	public static final String URL_FEEDERS_SETTINGS="updatesettings";
+	public static final String URL_UPDATE_PROFILE="updateprofile";
 
 	
  }

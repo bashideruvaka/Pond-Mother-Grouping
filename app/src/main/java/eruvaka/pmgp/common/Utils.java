@@ -92,6 +92,9 @@ public class Utils {
     public ServiceHelper getAdapter_feederSetting_update(){
         return new RetroHelper().getAdapter_feederSettings(ctx,"",null).create(ServiceHelper.class);
     }
+    public ServiceHelper getAdapterUserprofileData(){
+        return new RetroHelper().getAdapter_userprofile(ctx,"",null).create(ServiceHelper.class);
+    }
     /*  String Declaration  */
     private static String mpond_sno;
     public static void add_pondsSno(String pond_sno) {

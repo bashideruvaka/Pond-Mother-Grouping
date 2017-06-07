@@ -43,6 +43,8 @@ public interface ServiceHelper {
     @POST(UrlData.URL_FEEDERS_SETTINGS)
     public Call<JsonObject> feedersettings(@Body JsonObject obj);
 
+    @POST(UrlData.URL_UPDATE_PROFILE)
+    public Call<JsonObject> updateprofile(@Body JsonObject obj);
 
 }
 

@@ -103,7 +103,7 @@ public class HistoryFragment extends Fragment implements OnClickListener{
 					pondArrList.add(mapping);
 				}
 				if(pondArrList.size()>0){
-					pondsDisplay();
+					showPonds();
 				}else{
 					Toast.makeText(getActivity(),"pond array is empty",Toast.LENGTH_SHORT).show();
 				}
@@ -241,7 +241,7 @@ public class HistoryFragment extends Fragment implements OnClickListener{
 			 }
 	    return v;
 	}
-	private void pondsDisplay() {
+	private void showPonds() {
 		ArrayList<String> al=new ArrayList<>();
 		for (int i = 0; i < pondArrList.size(); i++) {
 			Map<String, String> map = pondArrList.get(i);
@@ -344,7 +344,6 @@ public class HistoryFragment extends Fragment implements OnClickListener{
 					 }else{
 						 getHistorydetails(str);
 					 }
-
 				 }
 				 
         	 }catch (Exception e) {
@@ -458,8 +457,6 @@ public class HistoryFragment extends Fragment implements OnClickListener{
 			 };
 
 
-			 
-
 	private void getHistorydetails(String feederSno) {
 		try {
 			 final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
@@ -512,17 +509,13 @@ public class HistoryFragment extends Fragment implements OnClickListener{
 
 	}
 
-
-				public void updated(){
+	public void updated(){
 					try{
 						td.setVerticalScrollBarEnabled(true);
 						td.removeAllViewsInLayout();
-						 
 					   	 for(int i=0; i<mylist.size(); i++) {
 					   		 final HashMap<String, String> map = mylist.get(i);
-					   		  
-					   		 
-					   		 final TextView datetv=new TextView(getActivity());
+				   		   final TextView datetv=new TextView(getActivity());
 					   		 LinearLayout.LayoutParams paramas41 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
 				                     LinearLayout.LayoutParams.WRAP_CONTENT,1);
 					   		datetv.setLayoutParams(paramas41);
@@ -569,9 +562,8 @@ public class HistoryFragment extends Fragment implements OnClickListener{
 						        float a=0,b=0; 
 					   	    final String schedules=map.get("schedules").toString().trim();
 					   	 JSONArray jsonArray = new JSONArray(schedules);
-					 	for (int j = 0; j < jsonArray.length(); j++) {
+					 	 for (int j = 0; j < jsonArray.length(); j++) {
 					 		JSONObject jObject = jsonArray.getJSONObject(j);
-			  			 		  			
 			  				final String dispensed_feed=jObject.getString("dispensed_feed");
 			  				final String schedule_times=jObject.getString("schedule_times");
 			  				final String original_feed=jObject.getString("original_feed");
@@ -601,10 +593,7 @@ public class HistoryFragment extends Fragment implements OnClickListener{
 									  fromtime1.setGravity(Gravity.START);
 					      		      fromtime1.setFreezesText(true);
 					      		      fromtime1.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-					      		         
-					      		     
-					      		      
-					      		 
+
 					      		    	final TextView actuval_feed=new TextView(getActivity());
 					      		    	 actuval_feed.setPadding(5,0,5,0);
 					      		    	actuval_feed.setLayoutParams(paramas1);

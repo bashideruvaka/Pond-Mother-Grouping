@@ -75,8 +75,8 @@ public class RetroHelper {
     //single feeder upadte /get_singlefeeder
     // update schedules
     public static Retrofit getAdapter_singlefeeder_update(Context context,String serverUrl,HashMap<String,String> headres){
-        String url="http://52.77.24.190/mobile/pondmother_basicmodes/"+serverUrl;
-        Log.e("RetrotHelper","url:"+url);
+        String url="http://52.77.24.190/eruvaka_live/mobile/pondmother_basicmodes/"+serverUrl;
+       Log.e("RetrotHelper","url:"+url);
         Retrofit retrofit;
         OkHttpClient client=getRequestInterceptor(headres);
         retrofit =new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create())
@@ -92,6 +92,14 @@ public class RetroHelper {
         return retrofit;
     }
     public static Retrofit getAdapter_feederSettings(Context context,String serverUrl,HashMap<String,String> headres){
+        String url="http://52.77.24.190/eruvaka_live/mobile/pondmother_basicmodes/"+serverUrl;
+        Retrofit retrofit;
+        OkHttpClient client=getRequestInterceptor(headres);
+        retrofit =new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create())
+                .client(client).build();
+        return retrofit;
+    }
+    public static Retrofit getAdapter_userprofile(Context context,String serverUrl,HashMap<String,String> headres){
         String url="http://52.77.24.190/eruvaka_live/mobile/pondmother_basicmodes/"+serverUrl;
         Retrofit retrofit;
         OkHttpClient client=getRequestInterceptor(headres);
