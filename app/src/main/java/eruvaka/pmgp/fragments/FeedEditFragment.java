@@ -1160,7 +1160,6 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                         if (ar.size() > 0) {
                             HashMap<String, String> map = new HashMap<String, String>();
                             map = schedules_list.get(ar.get(0));
-
                             map.put("status", "running");
                             stop_tv.setVisibility(View.VISIBLE);
                             pause_tv.setVisibility(View.VISIBLE);
@@ -1472,7 +1471,7 @@ public class FeedEditFragment extends Fragment implements  View.OnClickListener 
                       ids_array.add(schedule_id);
 
                   }
-                    System.out.println(ids_array);
+
                   }
 
                 for (int j = 0; j < group_array.size(); j++) {
